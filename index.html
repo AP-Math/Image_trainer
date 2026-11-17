@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8eaed">
+  <meta name="description" content="FOSTRA – Projektový den 20. listopadu. Vytrénuj si vlastní obrazovou AI.">
+  <title>FOSTRA | My AI Trainer</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="event-brand">
+      <div class="fostra">FOSTRA</div>
+      <div class="event-subtitle">PROJEKTOVÝ DEN <span>20. LISTOPADU</span></div>
+    </div>
+    <div class="app-brand">My AI Trainer</div>
+  </header>
+
+  <main class="workspace">
+    <section class="classes-column" aria-label="Trénovací kategorie">
+      <div id="classes" class="class-list"></div>
+      <button id="add-class" class="add-class-button" type="button"><span class="add-icon">⊞</span> Add a class</button>
+      <p class="small-note">Maximálně 3 kategorie · Obrázky pořizuj přímo kamerou.</p>
+    </section>
+
+    <section class="training-column">
+      <div class="flow-card training-card">
+        <h2>Training</h2>
+        <button id="train-button" class="train-button" type="button" disabled>Train Model</button>
+        <div id="training-progress" class="progress-wrap" hidden>
+          <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+          <div id="progress-label" class="progress-label">Připravuji trénování…</div>
+        </div>
+        <div class="advanced">
+          <button id="advanced-toggle" class="advanced-toggle" type="button" aria-expanded="false">
+            Advanced <span>⌄</span>
+          </button>
+          <div id="advanced-content" class="advanced-content" hidden>
+            <label for="epochs">Počet trénovacích epoch</label>
+            <input id="epochs" type="number" min="5" max="80" value="25">
+            <p>Více epoch nemusí automaticky znamenat lepší rozpoznávání.</p>
+          </div>
+        </div>
+      </div>
+      <div class="model-status">
+        <span id="status-dot" class="status-dot"></span>
+        <span id="model-status">Přidej příklady do alespoň dvou kategorií.</span>
+      </div>
+    </section>
+
+    <section class="preview-column">
+      <div class="flow-card preview-card">
+        <div class="preview-heading">
+          <h2>Preview</h2>
+          <span class="preview-live-label" id="preview-label">LIVE</span>
+        </div>
+        <div id="preview-content" class="preview-content">
+          <div class="preview-placeholder">
+            <p>You must train a model on the left before you can preview it here.</p>
+          </div>
+          <video id="test-video" autoplay playsinline muted hidden></video>
+        </div>
+        <div class="preview-actions">
+          <button id="start-test-camera" class="preview-button" type="button" disabled>▶ Spustit kameru</button>
+          <button id="switch-test-camera" class="preview-button secondary" type="button" hidden>↻ Přepnout kameru</button>
+          <button id="stop-test-camera" class="preview-button secondary" type="button" hidden>Zastavit</button>
+        </div>
+        <div id="predictions" class="predictions">
+          <p class="prediction-empty">Pravděpodobnosti rozpoznání se zobrazí zde.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="camera-modal" class="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-heading">
+        <div><h3>Add Image Samples</h3><p id="camera-class-name">Class</p></div>
+        <button id="close-modal" class="close-button" type="button" aria-label="Zavřít">×</button>
+      </div>
+      <div class="camera-preview">
+        <video id="capture-video" autoplay playsinline muted></video>
+        <div id="camera-placeholder" class="camera-placeholder">Kamera se připravuje…</div>
+      </div>
+      <div class="camera-controls">
+        <button id="switch-camera" class="secondary-button" type="button">Přepnout kameru</button>
+        <button id="capture-button" class="primary-button" type="button" disabled>Vyfotit příklad</button>
+      </div>
+      <div class="modal-bottom">
+        <span class="capture-count" id="capture-count">0 obrázků</span>
+        <button id="done-capturing" class="text-button" type="button">Hotovo</button>
+      </div>
+      <p class="hint">Pořiď různé pohledy, vzdálenosti a osvětlení. Pro každou kategorii doporučujeme 15–30 obrázků.</p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
