@@ -845,101 +845,143 @@ button {
   }
 }
 
-
 /* =========================================
    NÁVOD K POUŽITÍ
    ========================================= */
 
 .instructions {
-  width: min(1250px, calc(100% - 52px));
-  margin: 27px auto 0;
-  padding: 22px 26px;
+  width: min(1450px, calc(100% - 52px));
+  margin: 25px auto 0;
+  padding: 22px 25px;
   background: #fff;
   border: 1px solid #e1e3e6;
   border-radius: 13px;
   box-shadow: var(--shadow);
 }
 
-.instructions-heading {
-  margin-bottom: 20px;
-}
-
-.instructions-heading h2 {
-  font-size: 21px;
-  margin: 0 0 6px;
+.instructions h2 {
+  font-size: 20px;
+  margin: 0 0 20px;
   font-weight: 700;
-}
-
-.instructions-heading p {
-  color: var(--muted);
-  font-size: 13px;
-  margin: 0;
-  line-height: 1.5;
 }
 
 .instructions-steps {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 17px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .instruction-step {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 11px;
+  min-width: 0;
 }
 
 .step-number {
-  width: 27px;
-  height: 27px;
-  flex: 0 0 27px;
-  display: grid;
-  place-items: center;
-  background: var(--blue-light);
-  color: #1769d2;
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  font-size: 13px;
+  background: #e8f0fe;
+  color: #1769d2;
+  font-size: 15px;
   font-weight: 700;
 }
 
-.instruction-step h3 {
-  font-size: 13px;
-  margin: 3px 0 7px;
+.instruction-step strong {
+  display: block;
+  font-size: 14px;
+  margin: 4px 0 6px;
   line-height: 1.3;
 }
 
 .instruction-step p {
   font-size: 12px;
-  line-height: 1.5;
   color: #686e75;
+  line-height: 1.45;
   margin: 0;
 }
 
+.instructions-note {
+  border-top: 1px solid #e8eaed;
+  margin-top: 19px;
+  padding-top: 13px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #686e75;
+}
+
+.instructions-note strong {
+  color: #202124;
+  margin-right: 5px;
+}
+
+/* Tablet */
 @media(max-width: 1050px) {
   .instructions-steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 20px;
+    row-gap: 18px;
   }
 }
 
+/* Mobil */
 @media(max-width: 650px) {
   .instructions {
     width: calc(100% - 22px);
-    margin: 15px auto 0;
-    padding: 18px;
+    margin: 14px auto 0;
+    padding: 17px;
   }
 
-  .instructions-heading h2 {
+  .instructions h2 {
     font-size: 19px;
+    margin-bottom: 15px;
   }
 
   .instructions-steps {
-    grid-template-columns: 1fr;
-    gap: 17px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .instruction-step {
+    padding: 11px 0;
+    border-bottom: 1px solid #edf0f2;
+    gap: 12px;
+  }
+
+  .instruction-step:first-child {
+    padding-top: 0;
+  }
+
+  .instruction-step:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .step-number {
+    width: 29px;
+    height: 29px;
+    min-width: 29px;
+    font-size: 14px;
+  }
+
+  .instruction-step strong {
+    font-size: 14px;
+    margin: 3px 0 3px;
   }
 
   .instruction-step p {
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .instructions-note {
+    margin-top: 13px;
+    padding-top: 11px;
+    font-size: 11px;
   }
 }
-
