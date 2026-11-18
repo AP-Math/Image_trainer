@@ -588,11 +588,14 @@ async function classifyFrame(video) {
     input.dispose();
     output.dispose();
 
-    const ranked = classes.map((item, index) => ({
-      name: item.name,
-      color: item.color,
-      probability: probabilities[index]
-    })).sort((a, b) => b.probability - a.probability);
+// Zachovat původní pořadí kategorií.
+// Kategorie 1 vždy první, Kategorie 2 druhá,
+// Kategorie 3 třetí – bez ohledu na pravděpodobnost.
+const ranked = classes.map((item, index) => ({
+  name: item.name,
+  color: item.color,
+  probability: probabilities[index]
+}));
 
     $("predictions").innerHTML = ranked.map(item => `
       <div class="prediction-row">
