@@ -124,9 +124,19 @@ function invalidateModel() {
   updateTrainButton();
 }
 
-function addClass(name = `Kategorie ${classes.length + 1}`) {
+function addClass(name) {
   if (classes.length >= 3) {
     return toast("Lze vytvořit maximálně tři kategorie.");
+  }
+
+  if (!name) {
+    let number = 1;
+
+    while (classes.some(item => item.name === `Objekt č. ${number}`)) {
+      number++;
+    }
+
+    name = `Objekt č. ${number}`;
   }
 
   classes.push({
@@ -205,7 +215,7 @@ function renderClasses() {
     nameInput.value = item.name;
 
     nameInput.addEventListener("change", () => {
-      item.name = nameInput.value.trim() || `Kategorie ${item.id}`;
+      item.name = nameInput.value.trim() || `Objekt č. ${classes.indexOf(item) + 1}`;
 
       nameInput.value = item.name;
 
@@ -824,5 +834,5 @@ window.addEventListener("beforeunload", () => {
    VÝCHOZÍ KATEGORIE
    ========================================= */
 
-addClass("Kategorie 1");
-addClass("Kategorie 2");
+addClass("Objekt č. 1");
+addClass("Objekt č. 2");
